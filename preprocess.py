@@ -20,7 +20,10 @@ tsu.dropna(how='any', subset=['YEAR','LATITUDE','LONGITUDE'], inplace=True)
 print eq
 print tsu
 
-#mg = 
+rcodes = {77:10, 78:10, 73:120, 72:150, 70:15, 71:160, 75:150, 76:150, 74:90, 40:110, 50:130, 30:140, 60:60, 87:150, 84:30, 81:170, 80:150, 83:170, 82:170, 86:90, 85:30, 88:100, 89:100}
+tsu['REGION_CODE'] = tsu['REGION_CODE'].apply(lambda x: rcodes[x])
+print tsu.head()
+
 cct = pd.concat([eq, tsu])
 cct = cct.sort_values(['YEAR','MONTH','DAY'])
 code = ''
@@ -28,6 +31,7 @@ anm = 0
 loc = 0
 codes = []
 anmly = []
+
 cct = cct.reset_index(drop=True)
 for i in range(len(cct)):
     if cct.ix[i]['FLAG_TSUNAMI']=='tsu':
